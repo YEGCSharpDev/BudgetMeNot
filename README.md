@@ -1,7 +1,7 @@
 # BudgetMeNot
 ## _Self Hosted Zero Dollar Budgeting and Personal Finance Manager_
 
-BudgetMeNot is a Self Hosted, Docker Ready, Zero Dollar based budgeting web app with personal financing features cooked into it.   
+BudgetMeNot is a Self Hosted, Docker Ready, Zero Dollar based budgeting web app with personal finance features cooked into it.   
 
 ## Features
 
