@@ -10,4 +10,4 @@ BudgetMeNot is a Self Hosted, Docker Ready, Zero Dollar based budgeting web app 
 - Check your monthly financial health if you are "living within your means"
 - More to come
 
-> Note: `This is a work in progress with first Alpha build targeted to Q4 of 2023`
+> Note: `This is a work in progress with first Alpha build targeted to Q1 of 2025`
