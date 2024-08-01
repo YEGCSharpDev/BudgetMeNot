@@ -1,0 +1,25 @@
+version: 2
+updates:
+  # Update NuGet packages
+  - package-ecosystem: "nuget"
+    directory: "/"
+    schedule:
+      interval: "quarterly"
+    open-pull-requests-limit: 10
+    target-branch: "blazorpivot"
+
+  # Update Docker images
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "quarterly"
+    open-pull-requests-limit: 5
+    target-branch: "blazorpivot"
+
+  # Update GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "quarterly"
+    open-pull-requests-limit: 5
+    target-branch: "blazorpivot"
