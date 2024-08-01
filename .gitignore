@@ -1,0 +1,102 @@
+# .NET Core
+*.swp
+*.*~
+project.lock.json
+.DS_Store
+*.pyc
+
+# Visual Studio Code
+.vscode
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+build/
+bld/
+[Bb]in/
+[Oo]bj/
+msbuild.log
+msbuild.err
+msbuild.wrn
+
+# Visual Studio
+.vs/
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# SQL Server files
+*.mdf
+*.ldf
+
+# Business Intelligence projects
+*.rdl.data
+*.bim.layout
+*.bim_*.settings
+
+# Microsoft Fakes
+FakesAssemblies/
+
+# Node.js Tools for Visual Studio
+node_modules/
+
+# Blazor WebAssembly
+**/wwwroot/service-worker.js
+**/wwwroot/service-worker.published.js
+
+# User secrets
+**/appsettings.*.json
+**/secrets.json
+
+# Misc
+*.log
+*.tmp
+*.temp
+
+/BudgetMeNot.Client/wwwroot/css/app.min.css
+/BudgetMeNot.Client/wwwroot/js/app.min.js
+
+# Ignore any local configuration files
+*.local.json
+
+# Ignore any files in a "local" directory anywhere in the project
+**/local/
+
+# Ignore Visual Studio launch settings
+**/launchSettings.json
+
+# Ignore publish profiles
+**/PublishProfiles/
+*.pubxml
+*.pubxml.user
+
+# Ignore Azure deployment settings
+*.PublishSettings
+
+# Ignore NuGet packages
+*.nupkg
+
+# Ignore test results
+TestResults/
+
+# Ignore code coverage results
+coverage/
+
+# Ignore Resharper files
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user

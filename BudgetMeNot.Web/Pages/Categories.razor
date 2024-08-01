@@ -1,0 +1,42 @@
+﻿@page "/categories"
+@using BudgetMeNot.Core.Interfaces
+@using BudgetMeNot.Core.Models
+@inject ICategoryRepository CategoryRepository
+
+<h3>Categories</h3>
+
+@if (categories == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Target Amount</th>
+                <th>Parent Category</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var category in categories)
+            {
+                <tr>
+                    <td>@category.Name</td>
+                    <td>@category.TargetAmount.ToString("C")</td>
+                    <td>@category.ParentCategory?.Name</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private IEnumerable<Category> categories;
+
+    protected override async Task OnInitializedAsync()
+    {
+        categories = await CategoryRepository.GetAllCategoriesAsync();
+    }
+}

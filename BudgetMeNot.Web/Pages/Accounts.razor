@@ -1,0 +1,53 @@
+﻿@page "/accounts"
+@using BudgetMeNot.Core.Interfaces
+@using BudgetMeNot.Core.Models 
+@inject IAccountRepository AccountRepository
+
+<h3>Accounts</h3>
+
+@if (accounts == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Balance</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var account in accounts)
+            {
+                <tr>
+                    <td>@account.Name</td>
+                    <td>@account.Type</td>
+                    <td>@account.Balance.ToString("C")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private IEnumerable<Account> accounts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (AccountRepository != null)
+        {
+            try
+            {
+                accounts = await AccountRepository.GetAllAccountsAsync();
+            }
+            catch (Exception ex)
+            {
+                // Handle the exception (e.g., log it, show a message to the user, etc.)
+                Console.Error.WriteLine($"Error fetching accounts: {ex.Message}");
+            }
+        }
+    }
+}

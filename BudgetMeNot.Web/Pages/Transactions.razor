@@ -1,0 +1,46 @@
+﻿@page "/transactions"
+@using BudgetMeNot.Core.Interfaces
+@using BudgetMeNot.Core.Models
+@inject ITransactionRepository TransactionRepository
+
+<h3>Transactions</h3>
+
+@if (transactions == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Amount</th>
+                <th>Description</th>
+                <th>Account</th>
+                <th>Category</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var transaction in transactions)
+            {
+                <tr>
+                    <td>@transaction.Date.ToShortDateString()</td>
+                    <td>@transaction.Amount.ToString("C")</td>
+                    <td>@transaction.Description</td>
+                    <td>@transaction.Account.Name</td>
+                    <td>@transaction.Category.Name</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private IEnumerable<Transaction> transactions;
+
+    protected override async Task OnInitializedAsync()
+    {
+        transactions = await TransactionRepository.GetAllTransactionsAsync();
+    }
+}
