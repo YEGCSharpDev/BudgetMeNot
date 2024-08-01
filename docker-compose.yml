@@ -9,18 +9,29 @@ services:
       - "5000:80"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=BudgetMeNotDb;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;
+      - ConnectionStrings__DefaultConnection=Host=postgres;Database=BudgetMeNotDb;Username=postgres;Password=DummyPassword
     volumes:
       - dataprotection-keys:/app/keys
     depends_on:
-      - sqlserver
+      postgres:
+        condition: service_healthy
 
-  sqlserver:
-    image: mcr.microsoft.com/mssql/server:2022-latest
+  postgres:
+    image: postgres:13
     environment:
-      SA_PASSWORD: "YourStrong!Passw0rd"
-      ACCEPT_EULA: "Y"
+      POSTGRES_DB: BudgetMeNotDb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: DummyPassword
     ports:
-      - "1433:1433"
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
 volumes:
   dataprotection-keys:
+  postgres-data:
