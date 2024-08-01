@@ -11,8 +11,12 @@ using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationM
 using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption;
 using Microsoft.AspNetCore.DataProtection;
 using System.IO;
+using Microsoft.Extensions.Logging;
+using System;
 
-// Create a new WebApplicationBuilder. This is the starting point for configuring the app.
+/// <summary>
+/// Entry point of the application. Configures and runs the web host.
+/// </summary>
 var builder = WebApplication.CreateBuilder(args);
 
 // Configure data protection
@@ -35,9 +39,9 @@ builder.Services.AddRazorPages();
 // Add support for Server-Side Blazor
 builder.Services.AddServerSideBlazor();
 
-// Configure the database context
+// Configure the database context to use PostgreSQL
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Register repositories for dependency injection
 // This allows these repositories to be injected into controllers or other services
@@ -47,6 +51,22 @@ builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 
 // Build the application
 var app = builder.Build();
+
+// Apply migrations at startup
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var context = services.GetRequiredService<ApplicationDbContext>();
+        context.Database.Migrate();
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred while migrating the database.");
+    }
+}
 
 // Configure the HTTP request pipeline
 // This determines how the app responds to HTTP requests
